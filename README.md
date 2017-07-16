@@ -42,6 +42,5 @@ From here, the tweets had to be analysed and given a mood rating of Happy, Neutr
 
 <h3>Available Links to Resources, Notes</h3>
 <p>Porter Stemmer: https://github.com/kristopolous/Porter-Stemmer</p>
-<p>Corpus: Given as soft copy, as far as I can recall</p>
 <p>Molang gifs: http://www.funnyjunk.com/Molang/funny-pictures/5549251#a1540c_5548807</p>
-<p>Default user photo: I can't locate the link anymore, I'm sorry! Please let me know if you have it.</p>
+<p>Corpus: Given as soft copy, as far as I can recall | Default user photo: I can't locate the link anymore, I'm sorry!</p>
