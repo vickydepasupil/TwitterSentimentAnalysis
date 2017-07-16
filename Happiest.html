@@ -1,0 +1,304 @@
+<body onload="loadFiles()">
+
+  <div id="topBar">
+    <h1 id="topText">Twitter Sentiment Analysis</h1>
+    <ul>
+      <li><a href="Tweetdom.html">Tweetdom</a></li>
+      <li><a href="TopTags.html">Top 10</a></li>
+    </ul>
+  </div>
+
+  <div id="spacer"></div>
+  <div id="extra"></div>
+
+  <div id="pholder">
+    <div class="dashed">
+      <div id="top5Happiest" style="height: 450px"></div>
+    </div>
+
+    <div class="inBetween"></div>
+  </div>
+
+  <footer class="footer">
+  </footer>
+
+</body>
+</html>
+
+<link rel="stylesheet" href="Tweetdom.css">
+<script type="text/javascript" src="corpus.json"></script>
+<script type="text/javascript" src="data_3min.json"></script>
+<script type="text/javascript" src="PorterStemmer1980.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Raleway" type="text/css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Dancing+Script" type="text/css" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script> 
+<script src="//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script type="text/javascript">
+
+$(document).ready(loadFiles);
+
+  function loadFiles() {
+
+    $.getJSON("data_3min.json", function(data) {
+      var data = data;
+    });
+
+    $.getJSON("corpus.json", function(data) {
+      var corpus = JSON.parse(JSON.stringify(data));
+    });
+  }
+
+  var photo;
+  var userName;
+  var userHandler;
+  var text;
+  var month;
+  var day;
+  var stemText;
+  var country;
+
+  var tweetList = []; // final tweet package, for printing
+  var output = [];
+  var stemCorpus = {}; // stemmered version of corpus
+  var moodCountryList = [];
+  var hashtagList = [];
+  var countryList = [];
+
+  // Extracting corpus keys, applying stemmer, storing to STEMCORPUS
+
+  var tempCorpus = Object.keys(corpus);
+  var temp;
+  var corp;
+
+  for (i = 0; i < tempCorpus.length; i++) {
+      corp = tempCorpus[i];
+      temp = stemmer (corp);
+
+      stemCorpus[temp] = corpus[corp];
+  }
+
+  //Takes relevant information from each Tweet package and stores in TWEETLIST
+
+  for(i = 0; i < data.length; i++) {
+    if (data[i].user.lang == "en") { //ENGLISH ONLY FILTER
+      if (data[i].place != null) {                              // Skips tweets "place" attribute = null
+
+        var dateTemp = [];
+
+        photo = data[i].user.profile_image_url;
+        userName = data[i].user.name;
+        userHandler = data[i].user.screen_name;
+        text = data[i].text;
+        date = data[i].created_at;
+
+        if (data[i].place.country != null) {
+          country = data[i].place.country;
+        } else {
+          country = "";
+        }
+
+        dateTemp = date.split(" ");
+
+          tweetList.push ({
+            photo: photo,
+            name: userName,
+            handler: userHandler,
+            text: text,
+            month: dateTemp[1],
+            day: dateTemp[2],
+            country: country
+          });
+        }
+      }
+  }
+
+  // Processing tweets - splitting to individual words, applying stemmer, computing mood
+  
+  for (i = 0; i < tweetList.length; i++) {
+    var textTemp = [];
+    var score = 0;
+    var counter = 0;
+    var average = 0;
+    var hello = tweetList[i].country;
+
+    if (hello != "") {                                              // Will only score a tweet if it has an associated country attribute
+
+      countryList.push(hello);
+
+      textTemp = (tweetList[i].text.split(" "));
+
+      for (j = 0; j < textTemp.length; j++) {
+
+          justWords = textTemp[j].replace(/[,.\/!$%\^&\*;:{}=\-_`~()]/g,""); // Regex to filter out  punctuation and other unecessary characters
+
+          valHolder = stemmer(justWords.toLowerCase());
+
+        if (valHolder in stemCorpus) {
+          score = score + stemCorpus[valHolder];
+          counter++;
+        } else {
+          score = score + 0;
+        }
+
+        if (counter != 0) {                           // Method for computing individual tweet sentiment
+        average = score / counter;
+
+          moodCountryList.push({
+            country: hello,
+            mood: average
+          });      
+        } else {
+          moodCountryList.push({
+            country: tweetList[i].country,
+            mood: score
+          });
+        }
+      } 
+    }
+  } 
+
+var countryDict = {};                               // Dictionary for total 
+
+countryDict[moodCountryList[0].country] = moodCountryList[0].mood;
+  
+for (i = 1; i < moodCountryList.length; i++ ) {
+
+  var curCountry = moodCountryList[i].country;
+  var curVal = moodCountryList[i].mood;
+
+    if (countryDict.hasOwnProperty(curCountry)) {
+
+      var peanut = countryDict[curCountry]
+      countryDict[curCountry] = peanut + curVal;
+
+    } else {
+
+      countryDict[curCountry] = curVal;
+
+    }    
+}
+
+function sortOrder(arr) {
+  var tagRep = [];
+  var tagCount = [];
+  var tempHolder;
+
+  arr.sort();
+    for (i = 0; i < arr.length; i++ ) {
+        if ( arr[i] !== tempHolder ) {
+            tagRep.push(arr[i]);
+            tagCount.push(1);
+        } else {
+            tagCount[tagCount.length - 1]++;
+        }
+        tempHolder = arr[i]; // will allow loop to compare current item to the next item in the array
+    }
+  return [tagRep, tagCount];
+}
+
+// COMPUTING THE COUNTRY AVERAGES
+
+var repCount = sortOrder(countryList);
+
+var aveCountry = [];
+var aveMood = [];
+
+for (i = 0; i < repCount[0].length; i++) {
+
+  var iTag = repCount[0][i];
+
+  var iAve = (countryDict[iTag] / repCount[1][i]);      //countryDict[iTag] - sum of mood sores per country, repCount[1][i] - number of tweets per country
+
+  aveCountry.push(iTag);
+  aveMood.push(iAve);
+
+}
+
+//
+
+function returnMaxInd(arr) {
+
+  var maxVal = arr[0];
+  var index = 0;
+
+  for (i = 1; i < arr.length; i++) {
+    if (arr[i] > maxVal) {
+      index = i;
+        maxVal = arr[i];
+      }
+    }
+  return index;
+}
+
+function returnMaxVal(arr) {
+  return Math.max.apply(Math,arr);
+}
+
+// COMPUTING FOR HAPPIEST COUNTRIES
+
+var finalCountryList = [];
+var iter = 0;
+
+do {
+  var val = returnMaxVal(aveMood);
+  var ci = returnMaxInd(aveMood);
+  var country = aveCountry[ci];
+
+  finalCountryList.push({
+    country: country,
+    ave: val
+  });
+
+  var arrVal = aveMood.splice(ci,1); // Removes the index of the currently ranked top hashtag
+  var arrTag = aveCountry.splice(ci,1); // Removes the currently ranked top hashtag
+
+  iter++;
+} while (iter < 5);
+
+//CHART FOR HAPPIEST COUNTRIES
+Highcharts.setOptions({
+        colors: ['#5DBCD2'], /*#0DABBE*/
+        plotOptions: {
+            column: {
+                colorByPoint: true
+            }
+        }
+
+    });
+
+$(function () {
+    $('#top5Happiest').highcharts({
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: 'World\'s Happiest Countries (on Twitter)'
+        },
+        xAxis: {
+            categories: [finalCountryList[0].country,
+              finalCountryList[1].country,
+              finalCountryList[2].country,
+              finalCountryList[3].country,
+              finalCountryList[4].country
+              ]
+        },
+        yAxis: {
+            title: {
+                text: 'Happiest Countries Based on Average Tweet Mood'
+            }
+        },
+        series: [{
+            name: 'Average mood per country',
+            data: [finalCountryList[0].ave,
+              finalCountryList[1].ave,
+              finalCountryList[2].ave,
+              finalCountryList[3].ave,
+              finalCountryList[4].ave
+              ]
+        }],
+    });
+});
+
+</script>

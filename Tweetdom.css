@@ -1,0 +1,253 @@
+	html {
+		margin:0;
+		padding:0;
+		min-height: 100%;
+		background-color: Seashell;
+	}
+
+	body {
+		margin:0;
+		padding:0;
+		min-height: 100%;
+		background-color: Seashell;
+	}
+
+	#topBar {
+		position:fixed;
+		width:100%;
+		height:100px;
+		background-color:#0DABBE;
+		z-index:100;
+		box-shadow:0px 3px 5px darkgrey;
+	}
+
+	ul {
+		padding:17px 10px 10px 10px;
+		float:left;
+		list-style-type:none;
+		text-align:center;
+		display:block;
+		margin-left: 950px;
+	}
+
+	li {
+		float:left;
+	}
+
+	li a{
+		margin-top: 7px;
+		text-align: center;
+		text-decoration: none;
+		font-size:1.2em;
+		font-weight:bold;
+		display:inline-block;
+		color:Ivory;
+		padding: 14px 16px;
+		font-family:Raleway, Arial, sans-serif;
+	}
+
+	li a:hover {
+		background-color: rgba(255,255,240, 0.85);
+		color: #0DABBE;
+		text-decoration: none;
+		border-radius: 10px;
+	}
+
+	#spacer {
+		height:130px;
+		background-color: Seashell;
+	}
+
+	#topText {
+		font-family:"Dancing Script", Arial ,sans-serif;
+		font-weight:bold;
+		font-size:3em;
+		font-kerning:auto;
+		color:Ivory;
+		position:absolute;
+		margin:25px 0px 0px 50px;
+	}
+
+	.footer {
+		height:50px;
+		width:100%;
+		background-color:#0DABBE;
+		position:relative;
+    	bottom: 0;
+		box-shadow:0px 0px 5px 3px darkgrey;
+	}
+
+	.wrapper {
+		border: solid 2px grey;
+		border-radius: 10px;
+		font-family: Raleway;
+		display: inline-block;
+		width:700px;
+		height:auto;
+		overflow-wrap: break-word;
+	}
+
+	#container {
+		background-color: Seashell;
+		width: 100%;
+		height: 40px;
+	}
+
+	#navButtons {
+		display: table;
+		margin: auto;
+		font-family: Raleway;
+		min-width: 700px;
+		margin-bottom: 10px;
+	}
+
+	#navButtons button {
+		font-weight: bold;
+		box-shadow:0px 3px 5px darkgrey;
+	}
+
+	#back {
+		margin-left: 10px;
+	}
+
+	#next {
+		margin-left: 10px;
+	}
+
+	#toggle {
+		float:right;
+		margin-right: 10px;
+	}
+
+	#status {
+		display: block;
+		margin: auto;
+		width:50%;
+		font-family: Raleway;
+		min-width: 700px;
+		background-color: Seashell;
+	}
+
+	#stately {
+		display: block;
+		margin: auto;
+		width:50%;
+		font-family: Raleway;
+		min-width: 700px;
+		background-color: Seashell;
+	}
+
+	#pholder {
+		background-color: Seashell;
+	}
+
+	td {
+		margin-bottom: 10px;
+		box-shadow:0px 3px 5px darkgrey;
+		background-color:white;
+		height:auto;
+	}
+
+	.profile {
+		font-family: Raleway;
+		width: 100px;
+		float:left;
+		padding: 15px 10px 10px 15px;
+		text-align: center;
+		font-size:0.75em;
+		font-weight: bold;
+	}
+
+	.profile img {
+		display: block;
+		margin: auto;
+		border-radius: 10px;
+		height: 50px;
+		margin-bottom:5px;
+	}
+
+	.tweet {
+		margin-left: 10px;
+		display: flex;
+		float:left;
+		width: 400px;
+		height:auto;
+		margin: auto;
+		overflow-wrap: break-word;
+		position: relative;
+	}
+
+	.handler {
+		display: inline-block;
+		width: 100%;	
+		height:5px;
+		margin-top: 10px;
+		clear:right;
+		margin-bottom: 0px;
+	}
+
+	.mainTweet {
+		position:relative;
+		display: inline-block;
+		margin: 40px 0px 10px -400px;
+		width: 400px;
+	}
+
+	.timeStamp {
+		display: inline-block;
+		width: 100px;	
+		height:5px;
+		margin: 10px 20px 0px -150px;
+		clear:right;
+	}
+
+	.emoji {
+		float:right;
+		width:150px;
+	}
+
+	.sentiment {
+		height:90px;
+		display: block;
+	}
+
+	.inBetween {
+		height:50px;
+		background-color: transparent;
+		z-index: -10;
+	}
+
+	#extra {
+		height:20px;
+		background-color: Seashell;
+		z-index: -10;
+	}
+
+	#top10Tags {
+		width: 700px;
+		display: block;
+		margin: auto;
+		z-index: 100;
+	}
+
+	#top10Words {
+		width: 700px;
+		display: block;
+		margin: auto;
+		z-index: 100;
+	}
+
+	.dashed {
+		border: 2px darkgrey dashed;
+		background-color: white;
+		width: 900px;
+		display: block;
+		margin: auto;
+		padding-top: 20px;
+		overflow: hidden;
+		box-shadow:0px 3px 10px 1px darkgrey;
+		z-index: 100;
+	}
+
+
+

@@ -1,0 +1,324 @@
+<body onload="loadFiles()">
+
+  <div id="topBar">
+    <h1 id="topText">Twitter Sentiment Analysis</h1>
+    <ul>
+      <li><a href="Tweetdom.html">Tweetdom</a></li>
+      <li><a href="Happiest.html">Happiest 5</a></li>
+    </ul>
+  </div>
+
+  <div id="spacer"></div>
+  <div id="extra"></div>
+
+  <div id="pholder">
+    <div class="dashed">
+      <div id="top10Tags" style="height: 450px"></div>
+    </div>
+
+    <div class="inBetween"></div>
+    
+    <div class="dashed">
+      <div id="top10Words" style="height: 450px"></div>
+    </div>
+
+    <div class="inBetween"></div>
+  </div>    
+
+  <footer class="footer">
+  </footer>
+
+</body>
+</html>
+
+<link rel="stylesheet" href="Tweetdom.css">
+<script type="text/javascript" src="corpus.json"></script>
+<script type="text/javascript" src="data_3min.json"></script>
+<script type="text/javascript" src="PorterStemmer1980.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Raleway" type="text/css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Dancing+Script" type="text/css" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script> 
+<script src="//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script type="text/javascript">
+
+$(document).ready(loadFiles);
+
+  function loadFiles() {
+
+    $.getJSON("data_3min.json", function(data) {
+      var data = data;
+    });
+
+    $.getJSON("corpus.json", function(data) {
+      var corpus = JSON.parse(JSON.stringify(data));
+    });
+  }
+
+  var photo;  var userName;  var userHandler;  var text;  var month;  var day;  var stemText;  var tags;
+
+  var tweetList = []; // final tweet package, for printing
+  var stemCorpus = {}; // stemmered version of corpus
+  var hashtagList = [];
+  var wordList = [];
+
+  // Extracting corpus keys, applying stemmer, storing to STEMCORPUS
+
+  var tempCorpus = Object.keys(corpus);
+  var temp;
+  var corp;
+
+  for (i = 0; i < tempCorpus.length; i++) {
+      corp = tempCorpus[i];
+      temp = stemmer (corp);
+
+      stemCorpus[temp] = corpus[corp];
+  }
+
+  //Takes relevant information from each Tweet package and stores in TWEETLIST
+
+  for(i = 0; i < data.length; i++) {
+    if (data[i].user.lang == "en") { //ENGLISH ONLY FILTER
+      var dateTemp = [];
+
+      photo = data[i].user.profile_image_url;
+      userName = data[i].user.name;
+      userHandler = data[i].user.screen_name;
+      text = data[i].text;
+      date = data[i].created_at;
+      /*tags = data[i].entities.hastags;*/
+
+      dateTemp = date.split(" ");
+
+        tweetList.push ({
+          photo: photo,
+          name: userName,
+          handler: userHandler,
+          text: text,
+          month: dateTemp[1],
+          day: dateTemp[2]
+          /*tags: tags*/
+        });
+    }
+ }
+
+  // Processing tweets - splitting to individual words, applying stemmer, computing mood
+
+  
+  for (i = 0; i < tweetList.length; i++) {
+    var textTemp = [];
+    var score = 0;
+    var counter = 0;
+    var average = 0;
+
+    /*var myTags = tweetList[i].tags;
+
+    if (myTags != null) {
+      for (h = 0; h < myTags.length; h++) {
+        hashtagList.push(myTags[i]);
+      }
+    } else {
+      hashtagList.push("");
+    }*/
+
+    textTemp = (tweetList[i].text.split(" "));
+
+    for (j = 0; j < textTemp.length; j++) {
+
+    	if (textTemp[j][0] == "#" && textTemp[j].length != 1) {	// Filter for hashtags: starts with # and should be followed by another character
+        	hashtagList.push(textTemp[j].toLowerCase());
+    	}
+
+      	justWords = textTemp[j].replace(/[,.\/!$%\^&\*;:{}=\-_`~()]/g,"");
+
+      	valHolder = stemmer(justWords.toLowerCase());
+        if (valHolder != "" && valHolder.length > 2) {          // Filter for words: should be more than 2 characters long
+          wordList.push(valHolder);                            // Stores all words in one array, for processing later
+        }                        
+    }                      
+  }
+
+
+function sortOrder(arr) {
+  var tagRep = [];
+  var tagCount = [];
+  var tempHolder;
+
+  arr.sort();
+    for (i = 0; i < arr.length; i++ ) {
+        if ( arr[i] !== tempHolder ) {
+            tagRep.push(arr[i]);
+            tagCount.push(1);
+        } else {
+            tagCount[tagCount.length - 1]++;
+        }
+        tempHolder = arr[i]; // will allow loop to compare current item to the next item in the array
+    }
+  return [tagRep, tagCount];
+}
+
+var countedTags = sortOrder(hashtagList);
+var countedWords = sortOrder(wordList);
+
+function returnMaxInd(arr) {
+
+  var maxVal = arr[0];
+  var index = 0;
+
+  for (i = 1; i < arr.length; i++) {
+    if (arr[i] > maxVal) {
+      index = i;
+        maxVal = arr[i];
+      }
+    }
+  return index;
+}
+
+function returnMaxVal(arr) {
+  return Math.max.apply(Math,arr);
+}
+
+  var finalTagList = [];
+  var iterTag = 0;
+
+// COMPUTING FOR TOP 10 HASHTAGS
+
+do {
+  var val = returnMaxVal(countedTags[1]);
+  var tagi = returnMaxInd(countedTags[1]);
+  var tag = countedTags[0][tagi];
+
+  finalTagList.push({
+    tag: tag,
+    value: val
+  });
+
+  var arrVal = countedTags[1].splice(tagi,1); // Removes the index of the currently ranked top hashtag
+  var arrTag = countedTags[0].splice(tagi,1); // Removes the currently ranked top hashtag
+
+  iterTag++;
+} while (iterTag < 10);
+
+// COMPUTING FOR TOP 10 WORDS
+
+var finalWordList = [];
+var iterWord = 0;
+
+do {
+  var val = returnMaxVal(countedWords[1]);
+  var tagi = returnMaxInd(countedWords[1]);
+  var tag = countedWords[0][tagi];
+
+  finalWordList.push({
+    tag: tag,
+    value: val
+  });
+
+  var arrVal = countedWords[1].splice(tagi,1); // Removes the index of the currently ranked top word
+  var arrTag = countedWords[0].splice(tagi,1); // Removes the currently ranked top word
+
+  iterWord++;
+} while (iterWord < 10);
+
+//CHART FOR HASHTAGS
+
+Highcharts.setOptions({
+        colors: ['#5DBCD2'], /*#0DABBE*/
+        plotOptions: {
+            column: {
+                colorByPoint: true
+            }
+        }
+
+    });
+
+$(function () {
+    $('#top10Tags').highcharts({
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: 'Top Hashtags Used'
+        },
+        xAxis: {
+            categories: [finalTagList[0].tag,
+              finalTagList[1].tag,
+              finalTagList[2].tag,
+              finalTagList[3].tag,
+              finalTagList[4].tag,
+              finalTagList[5].tag,
+              finalTagList[6].tag,
+              finalTagList[7].tag,
+              finalTagList[8].tag,
+              finalTagList[9].tag
+              ]
+        },
+        yAxis: {
+            title: {
+                text: 'Criteria for filtering top hastags: Starts with "#" and should be followed by another charcter'
+            }
+        },
+        series: [{
+            name: 'Number of Occurances in Data Set',
+            data: [finalTagList[0].value,
+              finalTagList[1].value,
+              finalTagList[2].value,
+              finalTagList[3].value,
+              finalTagList[4].value,
+              finalTagList[5].value,
+              finalTagList[6].value,
+              finalTagList[7].value,
+              finalTagList[8].value,
+              finalTagList[9].value
+              ]
+        }],
+    });
+});
+
+//CHART FOR WORDS
+
+$(function () {
+    $('#top10Words').highcharts({
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: 'Top Words Used'
+        },
+        xAxis: {
+            categories: [finalWordList[0].tag,
+              finalWordList[1].tag,
+              finalWordList[2].tag,
+              finalWordList[3].tag,
+              finalWordList[4].tag,
+              finalWordList[5].tag,
+              finalWordList[6].tag,
+              finalWordList[7].tag,
+              finalWordList[8].tag,
+              finalWordList[9].tag
+              ]
+        },
+        yAxis: {
+            title: {
+                text: 'Criterion for filtering top words: Should be followed by another charcter'
+            }
+        },
+        series: [{
+            name: 'Number of Occurances in Data Set',
+            data: [finalWordList[0].value,
+              finalWordList[1].value,
+              finalWordList[2].value,
+              finalWordList[3].value,
+              finalWordList[4].value,
+              finalWordList[5].value,
+              finalWordList[6].value,
+              finalWordList[7].value,
+              finalWordList[8].value,
+              finalWordList[9].value
+              ]
+        }],
+    });
+});
+
+</script>
