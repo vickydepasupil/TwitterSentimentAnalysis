@@ -11,7 +11,6 @@ Given a large collection of Twitter data in JSON format, the task was to underst
 
 From here, the tweets had to be analysed and given a mood rating of Happy, Neutral, or Bad/Sad. The Porter Stemmer library is applied to the tweets to strip each word down to its root. The "stemmed" roots are then cross-referenced with the Corpus library to obtain the individual mood rating of the words. The average mood of the tweet is computed, and together with the rest of the isolated information, is printed in a Twitter feed-like page.
 
-Each mood has an emoji representing it:
 <div>
 <img src="https://user-images.githubusercontent.com/29102307/28251087-6ca03a94-6aa8-11e7-9130-88a432158cd0.gif">
 <img src="https://user-images.githubusercontent.com/29102307/28251090-6ca72c1e-6aa8-11e7-9712-e686f7a36951.gif">
