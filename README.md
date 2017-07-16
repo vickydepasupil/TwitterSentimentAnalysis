@@ -32,20 +32,18 @@ From here, the tweets had to be analysed and given a mood rating of Happy, Neutr
 <div>
 <h3>Happiest Countries</h3>
 <img src="https://user-images.githubusercontent.com/29102307/28251077-4d96f3ea-6aa8-11e7-8458-3d208a413bd6.png" width="900">
-<p>Using the geographic tags included in tweets, the average tweet mood was computed per country.</p>
-<p>This was an algorithm we had to try to develop on our own, and the top five I got are shown above.</p>
+<p>Using the geographic tags included in tweets, the average tweet mood was computed per country. This was an algorithm we had to try to develop on our own, and the top five I got are shown above.</p>
 </div>
 
 <div>
 <h3>Top 10 Hashtags and Words</h3>
 <img src="https://user-images.githubusercontent.com/29102307/28251075-4d95eb08-6aa8-11e7-8df4-77c2acf5e810.png" width="900">
-<p>Another algorithm we developed on our own. Frequency calculations were made on the data to identify the top used hashtags and words.</p>
+<p>Another algorithm we developed on our own. Frequency calculations were made to identify the top used hashtags and words.</p>
 <img src="https://user-images.githubusercontent.com/29102307/28251074-4d8d5024-6aa8-11e7-9248-f9484f335c68.png" width="900">
 </div>
 
-<h4>Available Links to Resources, Notes</h4>
+<h3>Available Links to Resources, Notes</h3>
 <p>Porter Stemmer: https://github.com/kristopolous/Porter-Stemmer</p>
 <p>Corpus: Given as soft copy, as far as I can recall</p>
-
 <p>Molang gifs: http://www.funnyjunk.com/Molang/funny-pictures/5549251#a1540c_5548807</p>
 <p>Default user photo: I can't locate the link anymore, I'm sorry! Please let me know if you have it.</p>
