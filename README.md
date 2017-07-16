@@ -8,13 +8,13 @@ Given a large collection of Twitter data in JSON format, the task was to underst
 - Tweet Body
 - Country of Origin
 
-From here, the tweets had to be analysed and given a mood rating of Happy, Neutral, or Bad/Sad. The Porter Stemmer library is applied to the tweets to strip each word down to its root. The "stemmed" roots are then cross-referenced with the Corpus library to obtain the individual mood rating of the words. The average mood of the tweet is computed, and together with the rest of the isolated information, is printed in a Twitter feed-like page.
+From here, the tweets had to be analysed and given a mood rating of Happy, Neutral, or Sad/Bad. The Porter Stemmer library is applied to the tweets to strip each word down to its root. The "stemmed" roots are then cross-referenced with the Corpus library to obtain the individual mood rating of the words. The average mood of the tweet is computed, and together with the rest of the isolated information, is printed in a Twitter feed-like page.
 
 <div>
+<h4>Emoji: Happy, Neutral, Sad/Bad</h4>
 <img src="https://user-images.githubusercontent.com/29102307/28251087-6ca03a94-6aa8-11e7-9130-88a432158cd0.gif">
 <img src="https://user-images.githubusercontent.com/29102307/28251090-6ca72c1e-6aa8-11e7-9712-e686f7a36951.gif">
 <img src="https://user-images.githubusercontent.com/29102307/28251089-6ca3fcf6-6aa8-11e7-8c01-9ebbb2e97f51.gif">
-&emsp;&emsp;&emsp;&nbsp     Happy    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  Neutral   &emsp;&emsp;&emsp;&emsp;&emsp;   Sad/Bad
 </div>
 
 <div>
@@ -42,5 +42,6 @@ From here, the tweets had to be analysed and given a mood rating of Happy, Neutr
 
 <h3>Available Links to Resources, Notes</h3>
 <p>Porter Stemmer: https://github.com/kristopolous/Porter-Stemmer</p>
+<p>Corpus: Given as soft copy, as far as I can recall</p>
 <p>Molang gifs: http://www.funnyjunk.com/Molang/funny-pictures/5549251#a1540c_5548807</p>
-<p>Corpus: Given as soft copy, as far as I can recall | Default user photo: I can't locate the link anymore, I'm sorry!</p>
+<p>Default user photo: I can't locate the link anymore, I'm sorry!</p>
