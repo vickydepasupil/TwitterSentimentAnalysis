@@ -1,5 +1,5 @@
 # TwitterSentimentAnalysis
-A Data Science and JSON Processing project on sifting through real world data (downloaded from Twitter servers), to get relevant information. This project uses JavaScript, jQuery, Bootstrap, 3rd party libraries: Hightcharts, Porter Stemmer and Corpus, HTML, and CSS.
+A Data Science and JSON Processing project on sifting through real world data (downloaded from Twitter servers), to get relevant information. This project uses JavaScript, jQuery, Bootstrap, 3rd party libraries: Hightcharts, Porter Stemmer, and Corpus, HTML, and CSS.
 
 Given a large collection of Twitter data in JSON format, the task was to understand the data structure and use this knowledge to traverse through, and retrieve the following information: 
 - User Name
@@ -46,3 +46,4 @@ From here, the tweets had to be analysed and given a mood rating of Happy, Neutr
 <p>Corpus: Given as soft copy, as far as I can recall</p>
 <p>Molang gifs: http://www.funnyjunk.com/Molang/funny-pictures/5549251#a1540c_5548807</p>
 <p>Default user photo: I can't locate the link anymore, I'm sorry!</p>
+<h4><em>Best viewed on Google Chrome!</em></h4>
