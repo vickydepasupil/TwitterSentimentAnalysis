@@ -1,7 +1,7 @@
 # TwitterSentimentAnalysis
 A Data Science and JSON Processing project on sifting through real world data (downloaded from Twitter servers), to get relevant information. This project uses JavaScript, jQuery, Bootstrap, 3rd party libraries: Hightcharts, Porter Stemmer and Corpus, HTML, and CSS.
 
-Given a large collection of Twitter data in JSON format, the task was to understand the data structure of Twitter API and use that to traverse through, and isolate the following information: 
+Given a large collection of Twitter data in JSON format, the task was to understand the data structure and use this knowledge to traverse through, and isolate the following information: 
 - User Name
 - User Handler
 - User Photo
