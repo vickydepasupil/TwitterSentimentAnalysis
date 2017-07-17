@@ -1,7 +1,7 @@
 # TwitterSentimentAnalysis
 A Data Science and JSON Processing project on sifting through real world data (downloaded from Twitter servers), to get relevant information. This project uses JavaScript, jQuery, Bootstrap, 3rd party libraries: Hightcharts, Porter Stemmer and Corpus, HTML, and CSS.
 
-Given a large collection of Twitter data in JSON format, the task was to understand the data structure and use this knowledge to traverse through, and isolate the following information: 
+Given a large collection of Twitter data in JSON format, the task was to understand the data structure and use this knowledge to traverse through, and retrieve the following information: 
 - User Name
 - User Handler
 - User Photo
@@ -9,7 +9,7 @@ Given a large collection of Twitter data in JSON format, the task was to underst
 - Date of Tweet
 - Country of Origin
 
-From here, the tweets had to be analysed and given a mood rating of Happy, Neutral, or Sad/Bad. The Porter Stemmer library is applied to the tweets to strip each word down to its root. The "stemmed" roots are then cross-referenced with the Corpus library to obtain the individual mood rating of the words. The average mood of the tweet is computed, and together with the rest of the isolated information, is printed in a Twitter feed-like page.
+From here, the tweets had to be analysed and given a mood rating of Happy, Neutral, or Sad/Bad. The Porter Stemmer library is applied to the tweets to strip each word down to its root. The "stemmed" roots are then cross-referenced with the Corpus library to obtain the individual mood rating of the words. The average mood of the tweet is computed, and together with the rest of the retrieved information, is printed in a Twitter feed-like page.
 
 <div>
 <h4>Emoji: Happy, Neutral, Sad/Bad</h4>
