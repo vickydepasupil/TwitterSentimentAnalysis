@@ -22,7 +22,7 @@ From here, the tweets had to be analysed and given a mood rating of Happy, Neutr
 <h3>Main Page - "Tweetdom"</h3>
 <img src="https://user-images.githubusercontent.com/29102307/28251076-4d962690-6aa8-11e7-831b-cf483cbaa55f.png" width="900">
 <p>The visibility of the emoji may be toggled via button.</p>
-<p>As per the project specifications, only 10 tweets are allowed on dispaly at a time. Whenever the user is on the first set of 10 tweets, the "<b>Back</b>" button is <b>disabled</b>. Otherwise, users may click the "<b>Back</b>" and "<b>Next</b>" buttons endlessly, to display the previous or the next set of tweets.</p>
+<p>As per the project specifications, only 10 tweets are allowed on dispaly at a time. Whenever the user is on the first set of 10 tweets, the "<b>Back</b>" button is <b>disabled</b>. Otherwise, the user may click the "<b>Back</b>" and "<b>Next</b>" buttons endlessly, to display the previous or the next set of tweets.</p>
 <img src="https://user-images.githubusercontent.com/29102307/28251078-4d97c0a4-6aa8-11e7-85b0-3b8e34f0a100.png" width="900">
 <p>If a user has a broken image, a default photo is assinged to take its place in the feed:</p>
 <img src="https://user-images.githubusercontent.com/29102307/28251088-6ca0d24c-6aa8-11e7-97e9-f8db08f7ff03.png" width="80">
